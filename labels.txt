@@ -1,0 +1,4 @@
+0 Nada
+1 Verde
+2 Maduro
+3 Podrido
