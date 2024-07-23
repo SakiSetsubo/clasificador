@@ -1,6 +1,8 @@
 import threading
 import time
 
+sem = threading.Semaphore(1)
+
 
 # Función que se ejecuta constantemente
 def main_function():
