@@ -46,7 +46,7 @@ def red():
     class_names = open("labels.txt", "r").readlines()
 
     # CAMERA can be 0 or 1 based on default camera of your computer
-    camera = cv2.VideoCapture(1)
+    camera = cv2.VideoCapture(0)
 
     vector = []
 
@@ -82,7 +82,8 @@ def red():
 
         if estado == "Nada":
             if len(vector) == 0:
-                print("Iniciando")
+                # print("Iniciando")
+                a = 0
             else:
                 if (
                     vector.count("Podrido") == 0
@@ -105,7 +106,7 @@ def red():
                 vector = []
         else:
             vector.append(estado)
-            print("Agregando")
+            # print("Agregando")
 
         # Listen to the keyboard for presses.
         keyboard_input = cv2.waitKey(1)
