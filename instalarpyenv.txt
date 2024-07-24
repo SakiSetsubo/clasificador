@@ -4,3 +4,5 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+CFLAGS="-I/usr/include/tcl8.6 -I/usr/include/tk8.6" LDFLAGS="-L/usr/lib/tcl8.6 -L/usr/lib/tk8.6" pyenv install --force 3.9.13
