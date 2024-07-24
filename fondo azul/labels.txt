@@ -1,4 +1,4 @@
-0 Verdes
-1 Podridos
-2 Maduros
-3 Fondo
+0 Nada
+1 Verde
+2 Maduro
+3 Podrido
