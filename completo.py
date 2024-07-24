@@ -213,7 +213,7 @@ class LemonClassifierApp:
     def run_classification(self):
         # Cargar el modelo y las etiquetas
         np.set_printoptions(suppress=True)
-        self.model = load_model("keras_Model.h5", compile=False)
+        self.model = load_model("keras_model.h5", compile=False)
         self.class_names = open("labels.txt", "r").readlines()
 
         while self.is_camera_running:
