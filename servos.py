@@ -34,7 +34,13 @@ def set_servo_angle(pwm, angle):
     pwm.ChangeDutyCycle(0)
 
 def servo_maduro():
+    set_servo_angle(servo_maduro_pwm, 0)
+    time.sleep(3)
     set_servo_angle(servo_maduro_pwm, 87)
+    time.sleep(3)
+    set_servo_angle(servo_maduro_pwm, 0)
+    time.sleep(3)
+
 
 def servo_danado():
     set_servo_angle(servo_danado_pwm, 87)
