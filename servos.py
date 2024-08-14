@@ -53,15 +53,15 @@ def servo_banda():
 
 try:
     while True:
-'''
-        print("Moviendo servo maduro a 87 grados...")
-        servo_maduro()
-        time.sleep(2)
+
+        #print("Moviendo servo maduro a 87 grados...")
+        #servo_maduro()
+        #time.sleep(2)
         
-        print("Moviendo servo dañado a 87 grados...")
-        servo_danado()
-        time.sleep(2)
-'''
+        #print("Moviendo servo dañado a 87 grados...")
+        #servo_danado()
+        #time.sleep(2)
+
         
         print("Moviendo servo banda...")
         servo_banda()
