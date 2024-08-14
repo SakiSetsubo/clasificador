@@ -42,14 +42,14 @@ def servo_danado():
 def servo_banda():
     # Los servos de 360 grados no se mueven a ángulos específicos, sino que giran continuamente
     # Cambiar el duty cycle para girar el servo de 360 grados en una dirección específica
-    servo_banda_pwm.ChangeDutyCycle(7.5)  # Valor medio para detener el servo
-    time.sleep(3)  # Esperar 3 segundos
+    #servo_banda_pwm.ChangeDutyCycle(7.5)  # Valor medio para detener el servo
+    #time.sleep(3)  # Esperar 3 segundos
     #servo_banda_pwm.ChangeDutyCycle(12.5)
     servo_banda_pwm.ChangeDutyCycle(5)  
     #servo_banda_pwm.ChangeDutyCycle(12.5)
     time.sleep(10)  # Esperar 3 segundos
-    servo_banda_pwm.ChangeDutyCycle(7.5)  # Detener el servo
-    time.sleep(3)
+    #servo_banda_pwm.ChangeDutyCycle(7.5)  # Detener el servo
+    #time.sleep(3)
 
 try:
     while True:
