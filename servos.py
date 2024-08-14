@@ -45,11 +45,11 @@ def servo_banda():
     #servo_banda_pwm.ChangeDutyCycle(12.5)
     servo_banda_pwm.ChangeDutyCycle(5)  
     #servo_banda_pwm.ChangeDutyCycle(12.5)
-    time.sleep(5)  # Esperar 3 segundos
+    time.sleep(10)  # Esperar 3 segundos
     servo_banda_pwm.ChangeDutyCycle(7)  # Detener el servo
     time.sleep(3)
     servo_banda_pwm.ChangeDutyCycle(5)  
-    time.sleep(5)  # Esperar 3 segundos
+    time.sleep(10)  # Esperar 3 segundos
 
 try:
     while True:
