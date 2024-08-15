@@ -181,7 +181,7 @@ class LemonClassifierApp:
             self.camera = cv2.VideoCapture(0)  # Usar la cámara predeterminada
             self.is_camera_running = True
             self.update_camera()
-            servo_banda_pwm.ChangeDutyCycle(10)  
+            self.servo_banda_pwm.ChangeDutyCycle(10)  
 
     def update_camera(self):
         if self.is_camera_running:
@@ -211,7 +211,7 @@ class LemonClassifierApp:
         if self.is_camera_running:
             self.camera.release()
             self.is_camera_running = False
-            servo_banda_pwm.ChangeDutyCycle(7) 
+            self.servo_banda_pwm.ChangeDutyCycle(7) 
 
     def reset_counts(self):
         self.verdes_count = 0
