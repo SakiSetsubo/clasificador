@@ -277,14 +277,16 @@ class LemonClassifierApp:
     def start_banda(self):
         if self.servo_semaphore.acquire(blocking=False):
             try:
-                self.servo_banda_pwm.ChangeDutyCycle(10) 
+                self.servo_banda_pwm.ChangeDutyCycle(10)
+                time.sleep(0.1)
             finally:
                 self.servo_semaphore.release()
         
     def stop_banda(self):
         if self.servo_semaphore.acquire(blocking=False):
             try:
-                self.servo_banda_pwm.ChangeDutyCycle(7) 
+                self.servo_banda_pwm.ChangeDutyCycle(7)
+                time.sleep(0.1)
             finally:
                 self.servo_semaphore.release()
                 
