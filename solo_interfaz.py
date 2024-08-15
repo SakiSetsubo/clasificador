@@ -1,6 +1,8 @@
 import tkinter as tk
 import cv2
 from PIL import Image, ImageTk
+import RPi.GPIO as GPIO
+import time
 
 
 class LemonClassifierApp:
