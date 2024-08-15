@@ -8,6 +8,29 @@ class LemonClassifierApp:
         self.root = root
         self.root.title("CLASIFICADOR DE LIMONES")
 
+        # Configuración de los pines GPIO y PWM
+        self.SERVO_MADURO_PIN = 23
+        self.SERVO_DANADO_PIN = 24
+        self.SERVO_BANDA_PIN = 25
+        self.SERVO_MADURO_PWM_FREQ = 50
+        self.SERVO_DANADO_PWM_FREQ = 50
+        self.SERVO_BANDA_PWM_FREQ = 50
+
+        # Inicialización de GPIO
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.SERVO_MADURO_PIN, GPIO.OUT)
+        GPIO.setup(self.SERVO_DANADO_PIN, GPIO.OUT)
+        GPIO.setup(self.SERVO_BANDA_PIN, GPIO.OUT)
+
+        # Configuración de PWM para cada servo
+        self.servo_maduro_pwm = GPIO.PWM(self.SERVO_MADURO_PIN, self.SERVO_MADURO_PWM_FREQ)
+        self.servo_danado_pwm = GPIO.PWM(self.SERVO_DANADO_PIN, self.SERVO_DANADO_PWM_FREQ)
+        self.servo_banda_pwm = GPIO.PWM(self.SERVO_BANDA_PIN, self.SERVO_BANDA_PWM_FREQ)
+
+        self.servo_maduro_pwm.start(0)
+        self.servo_danado_pwm.start(0)
+        self.servo_banda_pwm.start(0)
+
         # Frame principal
         self.main_frame = tk.Frame(self.root, bg="gray")
         self.main_frame.pack(fill=tk.BOTH, expand=True)
@@ -156,6 +179,7 @@ class LemonClassifierApp:
             self.camera = cv2.VideoCapture(0)  # Usar la cámara predeterminada
             self.is_camera_running = True
             self.update_camera()
+            servo_banda_pwm.ChangeDutyCycle(10)  
 
     def update_camera(self):
         if self.is_camera_running:
@@ -185,6 +209,7 @@ class LemonClassifierApp:
         if self.is_camera_running:
             self.camera.release()
             self.is_camera_running = False
+            servo_banda_pwm.ChangeDutyCycle(7) 
 
     def reset_counts(self):
         self.verdes_count = 0
@@ -206,8 +231,14 @@ class LemonClassifierApp:
             self.podridos_count += 1
         self.update_counters()
 
+    def set_servo_angle(pwm, angle):
+        duty_cycle = (angle / 18) + 2
+        pwm.ChangeDutyCycle(duty_cycle)
+        time.sleep(1)
+        pwm.ChangeDutyCycle(0)
 
 if __name__ == "__main__":
+
     root = tk.Tk()
     app = LemonClassifierApp(root)
     root.mainloop()

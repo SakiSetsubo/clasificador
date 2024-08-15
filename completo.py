@@ -5,7 +5,7 @@ import numpy as np  # Libreria para hacer operaciones con las imagenes
 import time
 import threading  # Libreria para manejar hilos
 from PIL import Image, ImageTk  # LIbreria par la interfaz grafica
-
+import RPi.GPIO as GPIO			# Libreria para los pines
 
 # Se crea la clase LemonClassifierApp
 class LemonClassifierApp:
@@ -316,8 +316,40 @@ class LemonClassifierApp:
         finally:
             self.semaphore.release()
 
-
+    def set_servo_angle(pwm, angle):
+        duty_cycle = (angle / 18) + 2
+        pwm.ChangeDutyCycle(duty_cycle)
+        time.sleep(1)
+        pwm.ChangeDutyCycle(0)
+        
 if __name__ == "__main__":
+
+    # Configuración de los pines GPIO
+    SERVO_MADURO_PIN = 23   # Cambia estos pines a los que estás usando
+    SERVO_DANADO_PIN = 24   # Cambia estos pines a los que estás usando
+    SERVO_BANDA_PIN = 25    # Cambia estos pines a los que estás usando
+
+    # Configuración de los servos
+    SERVO_MADURO_PWM_FREQ = 50
+    SERVO_DANADO_PWM_FREQ = 50
+    SERVO_BANDA_PWM_FREQ = 50
+
+    # Inicialización de GPIO
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(SERVO_MADURO_PIN, GPIO.OUT)
+    GPIO.setup(SERVO_DANADO_PIN, GPIO.OUT)
+    GPIO.setup(SERVO_BANDA_PIN, GPIO.OUT)
+
+    # Configuración de PWM para cada servo
+    servo_maduro_pwm = GPIO.PWM(SERVO_MADURO_PIN, SERVO_MADURO_PWM_FREQ)
+    servo_danado_pwm = GPIO.PWM(SERVO_DANADO_PIN, SERVO_DANADO_PWM_FREQ)
+    servo_banda_pwm = GPIO.PWM(SERVO_BANDA_PIN, SERVO_BANDA_PWM_FREQ)
+
+    servo_maduro_pwm.start(0)
+    servo_danado_pwm.start(0)
+    servo_banda_pwm.start(0)
+
+    # Ejecutar la interfaz
     root = tk.Tk()
     app = LemonClassifierApp(root)
     root.mainloop()
