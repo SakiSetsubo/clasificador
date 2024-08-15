@@ -3,6 +3,7 @@ import cv2
 from PIL import Image, ImageTk
 import RPi.GPIO as GPIO
 import time
+import threading
 
 
 class LemonClassifierApp:
@@ -142,7 +143,7 @@ class LemonClassifierApp:
         self.start_button = tk.Button(
             self.buttons_frame,
             text="Start",
-            command=self.start_camera,
+            command=self.start_all,
             font=("Arial", 10),
             width=26,
             height=2,
@@ -152,7 +153,7 @@ class LemonClassifierApp:
         self.stop_button = tk.Button(
             self.buttons_frame,
             text="Stop",
-            command=self.stop_camera,
+            command=self.stop_all,
             font=("Arial", 10),
             width=26,
             height=2,
@@ -175,13 +176,16 @@ class LemonClassifierApp:
         # Variables para control de la cámara
         self.camera = None
         self.is_camera_running = False
+        
+        # Threading
+        self.semaphore = threading.Semaphore(1)
+        self.servo_semaphore = threading.Semaphore(1)
 
     def start_camera(self):
         if not self.is_camera_running:
             self.camera = cv2.VideoCapture(0)  # Usar la cámara predeterminada
             self.is_camera_running = True
             self.update_camera()
-            self.servo_banda_pwm.ChangeDutyCycle(10)  
 
     def update_camera(self):
         if self.is_camera_running:
@@ -211,7 +215,7 @@ class LemonClassifierApp:
         if self.is_camera_running:
             self.camera.release()
             self.is_camera_running = False
-            self.servo_banda_pwm.ChangeDutyCycle(7) 
+            #self.servo_banda_pwm.ChangeDutyCycle(7) 
 
     def reset_counts(self):
         self.verdes_count = 0
@@ -238,6 +242,60 @@ class LemonClassifierApp:
         pwm.ChangeDutyCycle(duty_cycle)
         time.sleep(1)
         pwm.ChangeDutyCycle(0)
+        
+        # Encender el motor para limones podridos
+    def motor_podrito(self):
+        self.semaphore.acquire()
+        try:
+            print("Encender motor podrido")
+            time.sleep(4)
+            print("Terminado motor podrido")
+        finally:
+            self.semaphore.release()
+
+    # Encender el motor para limones maduros
+    def motor_maduros(self):
+        self.semaphore.acquire()
+        try:
+            print("Encender motor maduro")
+            time.sleep(4)
+            print("Terminado motor maduro")
+        finally:
+            self.semaphore.release()
+
+    # Desiciones al tener limones verdes
+    def verdes(self):
+        self.semaphore.acquire()
+        try:
+            print("Limones verdes")
+            time.sleep(4)
+            print("Terminado verde")
+        finally:
+            self.semaphore.release()
+            
+    # Desiciones banda 
+    def start_banda(self):
+        if self.servo_semaphore.acquire(blocking=False):
+            try:
+                self.servo_pwm.ChangeDutyCycle(10)
+            finally:
+                self.servo_semaphore.release()
+        
+    def stop_banda(self):
+        if self.servo_semaphore.acquire(blocking=False):
+            try:
+                self.servo_pwm.ChangeDutyCycle(10)
+            finally:
+                self.servo_semaphore.release()
+                
+    def start_all(self):
+        self.start_banda()
+        self.start_camera()
+        
+    def stop_all(self):
+        self.stop_banda()
+        self.stop_camera()
+        
 
 if __name__ == "__main__":
 
