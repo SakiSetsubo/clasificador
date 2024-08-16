@@ -279,7 +279,7 @@ class LemonClassifierApp:
         global running
         if not running:
             running = True
-            servo_thread = threading.Thread(target=run_servo)
+            servo_thread = threading.Thread(target=self.run_servo)
             servo_thread.start()
         #print("----------Servo started-------------")
         
