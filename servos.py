@@ -34,11 +34,11 @@ def set_servo_angle(pwm, angle):
     pwm.ChangeDutyCycle(0)
 
 def servo_maduro():
-    self.set_servo_angle(self.servo_maduro_pwm, 0)
+    set_servo_angle(servo_maduro_pwm, 0)
     time.sleep(0.5)
-    self.set_servo_angle(self.servo_danado_pwm, 87)
+    set_servo_angle(servo_danado_pwm, 87)
     time.sleep(4)
-    self.set_servo_angle(self.servo_maduro_pwm, 0)
+    set_servo_angle(servo_maduro_pwm, 0)
     time.sleep(0.5)
 
 
@@ -50,11 +50,11 @@ def servo_danado():
     set_servo_angle(servo_danado_pwm, 0)
     time.sleep(3)
 
-#def servo_banda():
+def servo_banda():
     # Los servos de 360 grados no se mueven a ángulos específicos, sino que giran continuamente
     # Cambiar el duty cycle para girar el servo de 360 grados en una dirección específica
-    #servo_banda_pwm.ChangeDutyCycle(10)  
-    #time.sleep(10)  # Esperar 3 segundos
+    servo_banda_pwm.ChangeDutyCycle(10)  
+    time.sleep(10)  # Esperar 3 segundos
     #servo_banda_pwm.ChangeDutyCycle(7)  # Detener el servo
     #time.sleep(3)
     #servo_banda_pwm.ChangeDutyCycle(10)  
@@ -72,16 +72,16 @@ try:
         time.sleep(2)
 
         
-        #print("Moviendo servo banda...")
-        #servo_banda()
-        #time.sleep(2)
+        print("Moviendo servo banda...")
+        servo_banda()
+        time.sleep(2)
 
 except KeyboardInterrupt:
     print("Programa terminado por el usuario.")
 finally:
     servo_maduro_pwm.stop()
     servo_danado_pwm.stop()
-    #servo_banda_pwm.stop()
+    servo_banda_pwm.stop()
     GPIO.cleanup()
 
 
