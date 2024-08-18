@@ -5,7 +5,6 @@ import numpy as np  # Libreria para hacer operaciones con las imagenes
 import time
 import threading  # Libreria para manejar hilos
 from PIL import Image, ImageTk  # LIbreria par la interfaz grafica
-import RPi.GPIO as GPIO			# Libreria para los pines
 
 # Variable global
 running = False
@@ -18,29 +17,6 @@ class LemonClassifierApp:
         # Atrubutos para la interfaz
         self.root = root
         self.root.title("CLASIFICADOR DE LIMONES")
-
-        # Configuración de los pines GPIO y PWM
-        self.SERVO_MADURO_PIN = 23
-        self.SERVO_DANADO_PIN = 12                                                                                                                                                            
-        self.SERVO_BANDA_PIN = 25
-        self.SERVO_MADURO_PWM_FREQ = 50
-        self.SERVO_DANADO_PWM_FREQ = 50
-        self.SERVO_BANDA_PWM_FREQ = 50
-
-        # Inicialización de GPIO
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.SERVO_MADURO_PIN, GPIO.OUT)
-        GPIO.setup(self.SERVO_DANADO_PIN, GPIO.OUT)
-        GPIO.setup(self.SERVO_BANDA_PIN, GPIO.OUT)
-
-        # Configuración de PWM para cada servo
-        self.servo_maduro_pwm = GPIO.PWM(self.SERVO_MADURO_PIN, self.SERVO_MADURO_PWM_FREQ)
-        self.servo_danado_pwm = GPIO.PWM(self.SERVO_DANADO_PIN, self.SERVO_DANADO_PWM_FREQ)
-        self.servo_banda_pwm = GPIO.PWM(self.SERVO_BANDA_PIN, self.SERVO_BANDA_PWM_FREQ)
-
-        self.servo_maduro_pwm.start(0)
-        self.servo_danado_pwm.start(0)
-        self.servo_banda_pwm.start(0)
 
         # Frame principal
         self.main_frame = tk.Frame(self.root, bg="gray")
@@ -193,9 +169,9 @@ class LemonClassifierApp:
         self.model = None
         self.class_names = None
         self.vector = []
-        self.vector_len = 8
-        #self.semaphore = threading.Semaphore(1)
-        #self.semaphore_clasificador = threading.Semaphore(1)
+        self.vector_len = 10
+        self.semaphore = threading.Semaphore(1)
+        self.semaphore_clasificador = threading.Semaphore(1)
 
     ### METODOS
 
@@ -321,31 +297,24 @@ class LemonClassifierApp:
         #self.semaphore.acquire()
         #try:
         print("Encender motor podrido")
-        servo_thread = threading.Thread(target=self.run_servo,args=(7))
-        self.set_servo_angle(self.servo_danado_pwm, 0)
-        self.set_servo_angle(self.servo_maduro_pwm, 0)
-        time.sleep(0.5)
-        self.set_servo_angle(self.servo_danado_pwm, 87)
-        time.sleep(6)
-        self.set_servo_angle(self.servo_maduro_pwm, 0)
-        time.sleep(0.5)
+        time.sleep(4)
         print("Terminado motor podrido")
         #finally:
-        #self.semaphore.release()
+         
+        #   self.semaphore.release()
 
     # Encender el motor para limones maduros
     def motor_maduros(self):
         #self.semaphore.acquire()
         #try:
         print("Encender motor maduro")
-        servo_thread = threading.Thread(target=self.run_servo,args=(5))
-        self.set_servo_angle(self.servo_danado_pwm, 0)
-        self.set_servo_angle(self.servo_maduro_pwm, 0)
-        time.sleep(0.5)
-        self.set_servo_angle(self.servo_danado_pwm, 87)
         time.sleep(4)
-        self.set_servo_angle(self.servo_maduro_pwm, 0)
-        time.sleep(0.5)
+            #self.set_servo_angle(self.servo_maduro_pwm, 0)
+            #time.sleep(0.5)
+            #self.set_servo_angle(self.servo_danado_pwm, 87)
+            #time.sleep(4)
+            #self.set_servo_angle(self.servo_maduro_pwm, 0)
+            #time.sleep(0.5)
         print("Terminado motor maduro")
         #finally:
         #    self.semaphore.release()
@@ -354,15 +323,19 @@ class LemonClassifierApp:
     def verdes(self):
         #self.semaphore.acquire()
         #try:
-        #servo_thread = threading.Thread(target=self.run_servo,args=(5))
-        #servo_thread.start()
         print("Encender motor verde")
-        servo_thread = threading.Thread(target=self.run_servo,args=(7))
-        self.set_servo_angle(self.servo_maduro_pwm, 0)
-        self.set_servo_angle(self.servo_danado_pwm, 0)
-        time.sleep(0.5)
+        time.sleep(4)
+            #servo_thread = threading.Thread(target=self.run_servo,args=(5))
+            #servo_thread.start()
+            #self.set_servo_angle(self.servo_maduro_pwm, 0)
+            #time.sleep(0.5)
+            #self.set_servo_angle(self.servo_danado_pwm, 87)
+            #time.sleep(4)
+            #self.set_servo_angle(self.servo_maduro_pwm, 0)
+            #time.sleep(0.5)
+        print("Terminado motor verde")
         #finally:
-        #    self.semaphore.release()
+        #   self.semaphore.release()
 
     def set_servo_angle(self, pwm, angle):
         duty_cycle = (angle / 18) + 2
@@ -379,17 +352,17 @@ class LemonClassifierApp:
         #time.sleep(1)
         
     def stop_all(self):
-        self.stop_banda()
+    #    self.stop_banda()
         self.stop_camera()
         #self.set_servo_angle(self.servo_danado_pwm, 0)
 
     # banda
-    def run_servo(self,tiempo):
-        global running
-        while running:
-            #print("Corriendo servo")
-            self.servo_banda_pwm.ChangeDutyCycle(10)
-            time.sleep(tiempo)
+    #def run_servo(self,tiempo):
+    #    global running
+    #    while running:
+    #        #print("Corriendo servo")
+    #        self.servo_banda_pwm.ChangeDutyCycle(10)
+    #        time.sleep(tiempo)
 
     def start_banda(self):
         global running
