@@ -402,8 +402,8 @@ class LemonClassifierApp:
         #print("----------Servo started-------------")
         
     def stop_banda(self):
-        self.servo_banda_pwm.ChangeDutyCycle(7)
-        time.sleep(1)
+        self.servo_banda_pwm.ChangeDutyCycle(10)
+        time.sleep(7)
         #print("------------Servo stopped-----------")
         
 if __name__ == "__main__":
