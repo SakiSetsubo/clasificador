@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 # Configuración de los pines GPIO
-SERVO_MADURO_PIN = 12   # Cambia estos pines a los que estás usando
+SERVO_MADURO_PIN =    # Cambia estos pines a los que estás usando
 SERVO_DANADO_PIN = 23   # Cambia estos pines a los que estás usando
 SERVO_BANDA_PIN = 25   # Cambia estos pines a los que estás usando
 
@@ -34,18 +34,18 @@ def set_servo_angle(pwm, angle):
     pwm.ChangeDutyCycle(0)
 
 def servo_maduro():
-    set_servo_angle(servo_maduro_pwm, 0)
-    time.sleep(3)
-    set_servo_angle(servo_maduro_pwm, 60)
-    time.sleep(3)
-    set_servo_angle(servo_maduro_pwm, 0)
-    time.sleep(3)
+    self.set_servo_angle(self.servo_maduro_pwm, 0)
+    time.sleep(0.5)
+    self.set_servo_angle(self.servo_danado_pwm, 87)
+    time.sleep(4)
+    self.set_servo_angle(self.servo_maduro_pwm, 0)
+    time.sleep(0.5)
 
 
 def servo_danado():
     set_servo_angle(servo_danado_pwm, 0)
     time.sleep(3)
-    set_servo_angle(servo_danado_pwm, 60)
+    set_servo_angle(servo_danado_pwm, 87)
     time.sleep(3)
     set_servo_angle(servo_danado_pwm, 0)
     time.sleep(3)

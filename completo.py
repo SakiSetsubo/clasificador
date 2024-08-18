@@ -326,9 +326,14 @@ class LemonClassifierApp:
     def motor_maduros(self):
         self.semaphore.acquire()
         try:
-            print("Encender motor maduro")
+            #print("Encender motor maduro")
+            self.set_servo_angle(self.servo_maduro_pwm, 0)
+            time.sleep(0.5)
+            self.set_servo_angle(self.servo_danado_pwm, 87)
             time.sleep(4)
-            print("Terminado motor maduro")
+            self.set_servo_angle(self.servo_maduro_pwm, 0)
+            time.sleep(0.5)
+            #print("Terminado motor maduro")
         finally:
             self.semaphore.release()
 
@@ -336,9 +341,12 @@ class LemonClassifierApp:
     def verdes(self):
         self.semaphore.acquire()
         try:
-            print("Limones verdes")
+            self.set_servo_angle(self.servo_maduro_pwm, 0)
+            time.sleep(0.5)
+            self.set_servo_angle(self.servo_danado_pwm, 87)
             time.sleep(4)
-            print("Terminado verde")
+            self.set_servo_angle(self.servo_maduro_pwm, 0)
+            time.sleep(0.5)
         finally:
             self.semaphore.release()
 
