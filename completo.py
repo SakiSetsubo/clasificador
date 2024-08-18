@@ -362,7 +362,7 @@ class LemonClassifierApp:
         #servo_thread = threading.Thread(target=self.run_servo,args=(5))
         #servo_thread.start()
         print("Encender motor verde")
-        servo_thread = threading.Thread(target=self.run_servo,args)
+        servo_thread = threading.Thread(target=self.run_servo)
         #self.set_servo_angle(self.servo_maduro_pwm, 0)
         #self.set_servo_angle(self.servo_danado_pwm, 0)
         time.sleep(7)
