@@ -299,10 +299,13 @@ class LemonClassifierApp:
     def start_all(self):
         self.start_banda()
         self.start_camera()
+        self.set_servo_angle(servo_maduro_pwm, 87)
+        time.sleep(1)
         
     def stop_all(self):
         self.stop_banda()
         self.stop_camera()
+        self.set_servo_angle(servo_maduro_pwm, 0)
         
 
 if __name__ == "__main__":
