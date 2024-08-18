@@ -7,6 +7,9 @@ import threading  # Libreria para manejar hilos
 from PIL import Image, ImageTk  # LIbreria par la interfaz grafica
 import RPi.GPIO as GPIO			# Libreria para los pines
 
+# Variable global
+running = False
+
 # Se crea la clase LemonClassifierApp
 class LemonClassifierApp:
     def __init__(self, root):
@@ -201,7 +204,7 @@ class LemonClassifierApp:
             self.camera = cv2.VideoCapture(0)  # Usar la cámara predeterminada
             self.is_camera_running = True
             self.update_camera()  # Llamar al metodo update_camera
-            self.start_classification()
+            #self.start_classification()
 
     # Metodo para refrescarla camara
     def update_camera(self):
@@ -355,6 +358,7 @@ class LemonClassifierApp:
     def stop_all(self):
         self.stop_banda()
         self.stop_camera()
+        self.start_classification()
         #self.set_servo_angle(self.servo_danado_pwm, 0)
 
     # banda
