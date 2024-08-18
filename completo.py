@@ -414,7 +414,7 @@ class LemonClassifierApp:
             servo_thread.start()
         #print("----------Servo started-------------")
         
-    def stop_banda(self):
+    #def stop_banda(self):
         #self.servo_banda_pwm.ChangeDutyCycle(10)
         #time.sleep(tiempo)
 
@@ -426,3 +426,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = LemonClassifierApp(root)
     root.mainloop()
+
