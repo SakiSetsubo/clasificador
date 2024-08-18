@@ -390,11 +390,8 @@ class LemonClassifierApp:
 
     # banda
     def run_servo(self,tiempo):
-        global running
-        while running:
-            #print("Corriendo servo")
-            self.servo_banda_pwm.ChangeDutyCycle(10)
-            time.sleep(tiempo)
+        self.servo_banda_pwm.ChangeDutyCycle(10)
+        time.sleep(tiempo)
 
     def start_banda(self):
         global running
@@ -405,9 +402,8 @@ class LemonClassifierApp:
         #print("----------Servo started-------------")
         
     def stop_banda(self):
-        global running
-        running = False
         self.servo_banda_pwm.ChangeDutyCycle(7)
+        time.sleep(1)
         #print("------------Servo stopped-----------")
         
 if __name__ == "__main__":
