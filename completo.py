@@ -343,7 +343,7 @@ class LemonClassifierApp:
         #self.semaphore.acquire()
         #try:
         print("Encender motor maduro")
-        servo_thread = threading.Thread(target=self.run_servo,args=(5,))
+        servo_thread = threading.Thread(target=self.run_servo)
         #self.set_servo_angle(self.servo_danado_pwm, 0)
         self.set_servo_angle(self.servo_maduro_pwm, 0)
         time.sleep(0.5)
@@ -362,7 +362,7 @@ class LemonClassifierApp:
         #servo_thread = threading.Thread(target=self.run_servo,args=(5))
         #servo_thread.start()
         print("Encender motor verde")
-        servo_thread = threading.Thread(target=self.run_servo,args=(7,))
+        servo_thread = threading.Thread(target=self.run_servo,args)
         #self.set_servo_angle(self.servo_maduro_pwm, 0)
         #self.set_servo_angle(self.servo_danado_pwm, 0)
         time.sleep(7)
@@ -389,15 +389,15 @@ class LemonClassifierApp:
         #self.set_servo_angle(self.servo_danado_pwm, 0)
 
     # banda
-    def run_servo(self,tiempo):
+    def run_servo(self):
         self.servo_banda_pwm.ChangeDutyCycle(10)
-        time.sleep(tiempo)
+        time.sleep(7)
 
     def start_banda(self):
         global running
         if not running:
             running = True
-            servo_thread = threading.Thread(target=self.run_servo,args=(5,))
+            servo_thread = threading.Thread(target=self.run_servo)
             servo_thread.start()
         #print("----------Servo started-------------")
         
