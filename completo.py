@@ -193,7 +193,7 @@ class LemonClassifierApp:
         self.model = None
         self.class_names = None
         self.vector = []
-        self.vector_len = 20
+        self.vector_len = 8
         self.semaphore = threading.Semaphore(1)
 
     ### METODOS
@@ -326,14 +326,14 @@ class LemonClassifierApp:
     def motor_maduros(self):
         self.semaphore.acquire()
         try:
-            #print("Encender motor maduro")
+            print("Encender motor maduro")
             self.set_servo_angle(self.servo_maduro_pwm, 0)
             time.sleep(0.5)
             self.set_servo_angle(self.servo_danado_pwm, 87)
             time.sleep(4)
             self.set_servo_angle(self.servo_maduro_pwm, 0)
             time.sleep(0.5)
-            #print("Terminado motor maduro")
+            print("Terminado motor maduro")
         finally:
             self.semaphore.release()
 
