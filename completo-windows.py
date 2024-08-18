@@ -170,8 +170,8 @@ class LemonClassifierApp:
         self.class_names = None
         self.vector = []
         self.vector_len = 10
-        self.semaphore = threading.Semaphore(1)
-        self.semaphore_clasificador = threading.Semaphore(1)
+        #self.semaphore = threading.Semaphore(1)
+        #self.semaphore_clasificador = threading.Semaphore(1)
 
     ### METODOS
 
@@ -245,6 +245,8 @@ class LemonClassifierApp:
                         ):
                             #threading.Thread(target=self.verdes).start()
                             self.verdes()
+                            self.verdes_count += 1 
+                            self.update_counters()
                             self.vector = []
                     if (
                         self.vector.count("Podrido") > self.vector.count("Verde")
@@ -253,6 +255,8 @@ class LemonClassifierApp:
                         ):
                             #threading.Thread(target=self.motor_podrito).start()
                             self.motor_podrito()
+                            self.podridos_count += 1
+                            self.update_counters()
                             self.vector = []
                     if (
                         self.vector.count("Maduro") > self.vector.count("Verde")
@@ -261,6 +265,8 @@ class LemonClassifierApp:
                         ):                    
                             #threading.Thread(target=self.motor_maduros).start() 
                             self.motor_maduros()  
+                            self.maduros_count += 1
+                            self.update_counters()
                             self.vector = []
 
     # Metodo para detener la camera
