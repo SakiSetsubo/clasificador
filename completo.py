@@ -256,33 +256,31 @@ class LemonClassifierApp:
 
                 estado = class_name[2:].strip()
 
-                
-                #if estado == "Nada":
-                #    if len(self.vector) == 0:
-                #        print("Iniciando")
-                #    else:
-                #        if (
-                #            self.vector.count("Podrido") == 0
-                #            and self.vector.count("Maduro") == 0
-                #            and len(self.vector) > self.vector_len
-                #        ):
-                #            threading.Thread(target=self.verdes).start()
-                #        if (
-                #            self.vector.count("Verde") == 0
-                #            and self.vector.count("Maduro") == 0
-                #            and len(self.vector) > self.vector_len
-                #        ):
-                #            threading.Thread(target=self.motor_podrito).start()
-                #        if (
-                #            self.vector.count("Verde") == 0
-                #            and self.vector.count("podrido") == 0
-                #            and len(self.vector) > self.vector_len
-                #        ):
-                #            threading.Thread(target=self.motor_maduros).start()
-                #        self.vector = []
-                #else:
-                #    self.vector.append(estado)
-                #    print("Agregando")
+                if estado == "Nada":
+                    print("Iniciando")
+                else:
+                    self.vector.append(estado)
+                    print("Agregando")
+                    if (
+                        self.vector.count("Podrido") == 0
+                        and self.vector.count("Maduro") == 0
+                        and len(self.vector) == self.vector_len
+                        ):
+                            threading.Thread(target=self.verdes).start()
+                    if (
+                        self.vector.count("Verde") == 0
+                        and self.vector.count("Maduro") == 0
+                        and len(self.vector) == self.vector_len
+                        ):
+                            threading.Thread(target=self.motor_podrito).start()
+                    if (
+                        self.vector.count("Verde") == 0
+                        and self.vector.count("podrido") == 0
+                        and len(self.vector) == self.vector_len
+                        ):                    
+                            threading.Thread(target=self.motor_maduros).start()
+                        
+                        self.vector = []
 
     # Metodo para detener la camera
     def stop_camera(self):
@@ -342,6 +340,8 @@ class LemonClassifierApp:
     def verdes(self):
         self.semaphore.acquire()
         try:
+            servo_thread = threading.Thread(target=self.run_servo,args=(5))
+            servo_thread.start()
             self.set_servo_angle(self.servo_maduro_pwm, 0)
             time.sleep(0.5)
             self.set_servo_angle(self.servo_danado_pwm, 87)
@@ -359,7 +359,7 @@ class LemonClassifierApp:
 
     # Start stop
     def start_all(self):
-        self.start_banda()
+        #self.start_banda()
         self.start_camera()
         self.start_classification()
         #self.set_servo_angle(self.servo_danado_pwm, 87)
@@ -371,18 +371,18 @@ class LemonClassifierApp:
         #self.set_servo_angle(self.servo_danado_pwm, 0)
 
     # banda
-    def run_servo(self):
+    def run_servo(self,tiempo):
         global running
         while running:
             #print("Corriendo servo")
             self.servo_banda_pwm.ChangeDutyCycle(10)
-            #time.sleep(0.1)
+            time.sleep(tiempo)
 
     def start_banda(self):
         global running
         if not running:
             running = True
-            servo_thread = threading.Thread(target=self.run_servo)
+            servo_thread = threading.Thread(target=self.run_servo,args=(5))
             servo_thread.start()
         #print("----------Servo started-------------")
         
