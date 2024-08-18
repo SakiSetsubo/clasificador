@@ -16,6 +16,29 @@ class LemonClassifierApp:
         self.root = root
         self.root.title("CLASIFICADOR DE LIMONES")
 
+        # Configuración de los pines GPIO y PWM
+        self.SERVO_MADURO_PIN = 23
+        self.SERVO_DANADO_PIN = 12                                                                                                                                                            
+        self.SERVO_BANDA_PIN = 25
+        self.SERVO_MADURO_PWM_FREQ = 50
+        self.SERVO_DANADO_PWM_FREQ = 50
+        self.SERVO_BANDA_PWM_FREQ = 50
+
+        # Inicialización de GPIO
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.SERVO_MADURO_PIN, GPIO.OUT)
+        GPIO.setup(self.SERVO_DANADO_PIN, GPIO.OUT)
+        GPIO.setup(self.SERVO_BANDA_PIN, GPIO.OUT)
+
+        # Configuración de PWM para cada servo
+        self.servo_maduro_pwm = GPIO.PWM(self.SERVO_MADURO_PIN, self.SERVO_MADURO_PWM_FREQ)
+        self.servo_danado_pwm = GPIO.PWM(self.SERVO_DANADO_PIN, self.SERVO_DANADO_PWM_FREQ)
+        self.servo_banda_pwm = GPIO.PWM(self.SERVO_BANDA_PIN, self.SERVO_BANDA_PWM_FREQ)
+
+        self.servo_maduro_pwm.start(0)
+        self.servo_danado_pwm.start(0)
+        self.servo_banda_pwm.start(0)
+
         # Frame principal
         self.main_frame = tk.Frame(self.root, bg="gray")
         self.main_frame.pack(fill=tk.BOTH, expand=True)
@@ -127,7 +150,7 @@ class LemonClassifierApp:
         self.start_button = tk.Button(
             self.buttons_frame,
             text="Start",
-            command=self.start_camera,  # Ejecutar el metodo start_camera
+            command=self.start_all,  # Ejecutar el metodo start_camera
             font=("Arial", 10),
             width=26,
             height=2,
@@ -138,7 +161,7 @@ class LemonClassifierApp:
         self.stop_button = tk.Button(
             self.buttons_frame,
             text="Stop",
-            command=self.stop_camera,  # Ejecutar el metodo stop_camera
+            command=self.stop_all,  # Ejecutar el metodo stop_camera
             font=("Arial", 10),
             width=26,
             height=2,
@@ -316,11 +339,46 @@ class LemonClassifierApp:
         finally:
             self.semaphore.release()
 
-    def set_servo_angle(pwm, angle):
+    def set_servo_angle(self, pwm, angle):
         duty_cycle = (angle / 18) + 2
         pwm.ChangeDutyCycle(duty_cycle)
         time.sleep(1)
         pwm.ChangeDutyCycle(0)
+
+    # Start stop
+    def start_all(self):
+        self.start_banda()
+        self.start_camera()
+        #self.set_servo_angle(self.servo_danado_pwm, 87)
+        #time.sleep(1)
+        
+    def stop_all(self):
+        self.stop_banda()
+        self.stop_camera()
+        #self.set_servo_angle(self.servo_danado_pwm, 0)
+
+    # banda
+    def run_servo():
+    global running
+    while running:
+        #print("Corriendo servo")
+        time.sleep(1)
+
+    def start_banda(self):
+        global running
+        if not running:
+            running = True
+            servo_thread = threading.Thread(target=self.run_servo)
+            servo_thread.start()
+        #print("----------Servo started-------------")
+        
+    def stop_banda(self):
+        global running
+        running = False
+        self.servo_banda_pwm.ChangeDutyCycle(7)
+        #print("------------Servo stopped-----------")
+
+
         
 if __name__ == "__main__":
 
