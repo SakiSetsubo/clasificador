@@ -27,7 +27,7 @@ servo_maduro_pwm.start(0)
 servo_banda_pwm.start(0)
 
 
-def set_servo_angle(self, pwm, angle):
+def set_servo_angle(pwm, angle):
     duty_cycle = (angle / 18) + 2
     pwm.ChangeDutyCycle(duty_cycle)
     time.sleep(1)

@@ -238,11 +238,11 @@ class LemonClassifierApp:
             self.podridos_count += 1
         self.update_counters()
 
-    def set_servo_angle(self,pwm, angle):
+    def set_servo_angle(self, pwm, angle):
         duty_cycle = (angle / 18) + 2
-        self.pwm.ChangeDutyCycle(duty_cycle)
+        pwm.ChangeDutyCycle(duty_cycle)
         time.sleep(1)
-        self.pwm.ChangeDutyCycle(0)
+        pwm.ChangeDutyCycle(0)
         
         # Encender el motor para limones podridos
     def motor_podrito(self):
