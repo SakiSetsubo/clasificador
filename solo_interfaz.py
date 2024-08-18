@@ -15,7 +15,7 @@ class LemonClassifierApp:
 
         # Configuración de los pines GPIO y PWM
         self.SERVO_MADURO_PIN = 23
-        self.SERVO_DANADO_PIN = 24
+        self.SERVO_DANADO_PIN = 12
         self.SERVO_BANDA_PIN = 25
         self.SERVO_MADURO_PWM_FREQ = 50
         self.SERVO_DANADO_PWM_FREQ = 50
