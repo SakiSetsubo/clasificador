@@ -362,11 +362,12 @@ class LemonClassifierApp:
         #self.set_servo_angle(self.servo_danado_pwm, 0)
 
     # banda
-    def run_servo():
-    global running
-    while running:
-        #print("Corriendo servo")
-        time.sleep(1)
+    def run_servo(self):
+        global running
+        while running:
+            #print("Corriendo servo")
+            self.servo_banda_pwm.ChangeDutyCycle(10)
+            #time.sleep(0.1)
 
     def start_banda(self):
         global running
@@ -385,31 +386,6 @@ class LemonClassifierApp:
 
         
 if __name__ == "__main__":
-
-    # Configuración de los pines GPIO
-    SERVO_MADURO_PIN = 23   # Cambia estos pines a los que estás usando
-    SERVO_DANADO_PIN = 24   # Cambia estos pines a los que estás usando
-    SERVO_BANDA_PIN = 25    # Cambia estos pines a los que estás usando
-
-    # Configuración de los servos
-    SERVO_MADURO_PWM_FREQ = 50
-    SERVO_DANADO_PWM_FREQ = 50
-    SERVO_BANDA_PWM_FREQ = 50
-
-    # Inicialización de GPIO
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(SERVO_MADURO_PIN, GPIO.OUT)
-    GPIO.setup(SERVO_DANADO_PIN, GPIO.OUT)
-    GPIO.setup(SERVO_BANDA_PIN, GPIO.OUT)
-
-    # Configuración de PWM para cada servo
-    servo_maduro_pwm = GPIO.PWM(SERVO_MADURO_PIN, SERVO_MADURO_PWM_FREQ)
-    servo_danado_pwm = GPIO.PWM(SERVO_DANADO_PIN, SERVO_DANADO_PWM_FREQ)
-    servo_banda_pwm = GPIO.PWM(SERVO_BANDA_PIN, SERVO_BANDA_PWM_FREQ)
-
-    servo_maduro_pwm.start(0)
-    servo_danado_pwm.start(0)
-    servo_banda_pwm.start(0)
 
     # Ejecutar la interfaz
     root = tk.Tk()
