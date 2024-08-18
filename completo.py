@@ -263,8 +263,8 @@ class LemonClassifierApp:
                     self.vector.append(estado)
                     print("Agregando: {}".format(estado))
                     if (
-                        self.vector.count("Verde") > self.vector.count("Podrido")
-                        and self.vector.count("Verde") > self.vector.count("Maduro")
+                        self.vector.count("Verde") >= self.vector.count("Podrido")
+                        and self.vector.count("Verde") >= self.vector.count("Maduro")
                         and len(self.vector) == self.vector_len
                         ):
                             #threading.Thread(target=self.verdes).start()
@@ -273,8 +273,8 @@ class LemonClassifierApp:
                             self.update_counters()
                             self.vector = []
                     elif (
-                        self.vector.count("Podrido") > self.vector.count("Verde")
-                        and self.vector.count("Podrido") > self.vector.count("Maduro")
+                        self.vector.count("Podrido") >= self.vector.count("Verde")
+                        and self.vector.count("Podrido") >= self.vector.count("Maduro")
                         and len(self.vector) == self.vector_len
                         ):
                             #threading.Thread(target=self.motor_podrito).start()
@@ -283,8 +283,8 @@ class LemonClassifierApp:
                             self.update_counters()
                             self.vector = []
                     elif (
-                        self.vector.count("Maduro") > self.vector.count("Verde")
-                        and self.vector.count("Maduro") > self.vector.count("Podrido")
+                        self.vector.count("Maduro") >= self.vector.count("Verde")
+                        and self.vector.count("Maduro") >= self.vector.count("Podrido")
                         and len(self.vector) == self.vector_len
                         ):                    
                             #threading.Thread(target=self.motor_maduros).start() 
@@ -386,9 +386,15 @@ class LemonClassifierApp:
     def start_all(self):
         #self.start_banda()
         self.start_camera()
-        self.start_classification()
+        #self.start_classification()
         #self.set_servo_angle(self.servo_danado_pwm, 87)
         #time.sleep(1)
+        servo_thread = threading.Thread(target=self.run_servo, args=(5,))
+        servo_thread.start()
+        #self.set_servo_angle(self.servo_maduro_pwm, 0)
+        #self.set_servo_angle(self.servo_danado_pwm, 0)
+        time.sleep(7)
+        servo_thread.join()
         
     def stop_all(self):
         #self.stop_banda()
@@ -409,8 +415,8 @@ class LemonClassifierApp:
         #print("----------Servo started-------------")
         
     def stop_banda(self):
-        self.servo_banda_pwm.ChangeDutyCycle(10)
-        time.sleep(tiempo)
+        #self.servo_banda_pwm.ChangeDutyCycle(10)
+        #time.sleep(tiempo)
 
         #print("------------Servo stopped-----------")
         
