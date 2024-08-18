@@ -15,7 +15,7 @@ class LemonClassifierApp:
 
         # Configuración de los pines GPIO y PWM
         self.SERVO_MADURO_PIN = 23
-        self.SERVO_DANADO_PIN = 12
+        self.SERVO_DANADO_PIN = 12                                                                                                                                                            
         self.SERVO_BANDA_PIN = 25
         self.SERVO_MADURO_PWM_FREQ = 50
         self.SERVO_DANADO_PWM_FREQ = 50
@@ -299,13 +299,13 @@ class LemonClassifierApp:
     def start_all(self):
         self.start_banda()
         self.start_camera()
-        self.set_servo_angle(self.servo_maduro_pwm, 87)
+        self.set_servo_angle(self.servo_danado_pwm, 87)
         time.sleep(1)
         
     def stop_all(self):
         self.stop_banda()
         self.stop_camera()
-        self.set_servo_angle(self.servo_maduro_pwm, 0)
+        self.set_servo_angle(self.servo_danado_pwm, 0)
         
 
 if __name__ == "__main__":
