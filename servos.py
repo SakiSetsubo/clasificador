@@ -43,7 +43,6 @@ def servo_maduro():
 
 
 def servo_danado():
-    set_servo_angle(, 87)
     set_servo_angle(servo_danado_pwm, 0)
     time.sleep(3)
     set_servo_angle(servo_danado_pwm, 87)
