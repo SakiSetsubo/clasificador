@@ -335,6 +335,7 @@ class LemonClassifierApp:
         time.sleep(6)
         self.set_servo_angle(self.servo_danado_pwm, 0)
         time.sleep(0.5)
+        servo_thread.join()
         print("Terminado motor podrido")
         #finally:
         #self.semaphore.release()
@@ -353,6 +354,7 @@ class LemonClassifierApp:
         time.sleep(4)
         self.set_servo_angle(self.servo_maduro_pwm, 0)
         time.sleep(0.5)
+        servo_thread.join()
         print("Terminado motor maduro")
         #finally:
         #    self.semaphore.release()
@@ -369,6 +371,8 @@ class LemonClassifierApp:
         #self.set_servo_angle(self.servo_maduro_pwm, 0)
         #self.set_servo_angle(self.servo_danado_pwm, 0)
         time.sleep(7)
+        servo_thread.join()
+        print("Terminado motor verde")
         #finally:
         #    self.semaphore.release()
 
