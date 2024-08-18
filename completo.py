@@ -272,7 +272,7 @@ class LemonClassifierApp:
                             self.verdes_count += 1 
                             self.update_counters()
                             self.vector = []
-                    if (
+                    elif (
                         self.vector.count("Podrido") > self.vector.count("Verde")
                         and self.vector.count("Podrido") > self.vector.count("Maduro")
                         and len(self.vector) == self.vector_len
@@ -282,7 +282,7 @@ class LemonClassifierApp:
                             self.podridos_count += 1
                             self.update_counters()
                             self.vector = []
-                    if (
+                    elif (
                         self.vector.count("Maduro") > self.vector.count("Verde")
                         and self.vector.count("Maduro") > self.vector.count("Podrido")
                         and len(self.vector) == self.vector_len
