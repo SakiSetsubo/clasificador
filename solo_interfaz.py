@@ -299,6 +299,8 @@ class LemonClassifierApp:
     def start_all(self):
         self.start_banda()
         self.start_camera()
+        self.set_servo_angle(self.servo_maduro_pwm, 0)
+        time.sleep(0.5)
         self.set_servo_angle(self.servo_danado_pwm, 87)
         time.sleep(1)
         
