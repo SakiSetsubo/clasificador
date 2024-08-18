@@ -256,32 +256,33 @@ class LemonClassifierApp:
 
                 estado = class_name[2:].strip()
 
-                if estado == "Nada":
-                    if len(self.vector) == 0:
-                        print("Iniciando")
-                    else:
-                        if (
-                            self.vector.count("Podrido") == 0
-                            and self.vector.count("Maduro") == 0
-                            and len(self.vector) > self.vector_len
-                        ):
-                            threading.Thread(target=self.verdes).start()
-                        if (
-                            self.vector.count("Verde") == 0
-                            and self.vector.count("Maduro") == 0
-                            and len(self.vector) > self.vector_len
-                        ):
-                            threading.Thread(target=self.motor_podrito).start()
-                        if (
-                            self.vector.count("Verde") == 0
-                            and self.vector.count("podrido") == 0
-                            and len(self.vector) > self.vector_len
-                        ):
-                            threading.Thread(target=self.motor_maduros).start()
-                        self.vector = []
-                else:
-                    self.vector.append(estado)
-                    print("Agregando")
+                
+                #if estado == "Nada":
+                #    if len(self.vector) == 0:
+                #        print("Iniciando")
+                #    else:
+                #        if (
+                #            self.vector.count("Podrido") == 0
+                #            and self.vector.count("Maduro") == 0
+                #            and len(self.vector) > self.vector_len
+                #        ):
+                #            threading.Thread(target=self.verdes).start()
+                #        if (
+                #            self.vector.count("Verde") == 0
+                #            and self.vector.count("Maduro") == 0
+                #            and len(self.vector) > self.vector_len
+                #        ):
+                #            threading.Thread(target=self.motor_podrito).start()
+                #        if (
+                #            self.vector.count("Verde") == 0
+                #            and self.vector.count("podrido") == 0
+                #            and len(self.vector) > self.vector_len
+                #        ):
+                #            threading.Thread(target=self.motor_maduros).start()
+                #        self.vector = []
+                #else:
+                #    self.vector.append(estado)
+                #    print("Agregando")
 
     # Metodo para detener la camera
     def stop_camera(self):
