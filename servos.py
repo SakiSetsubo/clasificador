@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 # Configuración de los pines GPIO
-SERVO_MADURO_PIN =    # Cambia estos pines a los que estás usando
+SERVO_MADURO_PIN = 12   # Cambia estos pines a los que estás usando
 SERVO_DANADO_PIN = 23   # Cambia estos pines a los que estás usando
 SERVO_BANDA_PIN = 25   # Cambia estos pines a los que estás usando
 
