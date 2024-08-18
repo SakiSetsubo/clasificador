@@ -410,7 +410,8 @@ class LemonClassifierApp:
         
     def stop_banda(self):
         self.servo_banda_pwm.ChangeDutyCycle(10)
-        time.sleep(7)
+        time.sleep(tiempo)
+
         #print("------------Servo stopped-----------")
         
 if __name__ == "__main__":
