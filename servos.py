@@ -3,8 +3,8 @@ import time
 
 # Configuración de los pines GPIO
 SERVO_MADURO_PIN = 24   # Cambia estos pines a los que estás usando
-#SERVO_DANADO_PIN = 27   # Cambia estos pines a los que estás usando
-SERVO_BANDA_PIN = 23    # Cambia estos pines a los que estás usando
+SERVO_DANADO_PIN = 23   # Cambia estos pines a los que estás usando
+SERVO_BANDA_PIN = 25   # Cambia estos pines a los que estás usando
 
 # Configuración de los servos
 SERVO_MADURO_PWM_FREQ = 50
