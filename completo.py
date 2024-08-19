@@ -412,7 +412,7 @@ class LemonClassifierApp:
         #print("----------Servo started-------------")
         
     def stop(self):
-        servo_thread.join()
+        #servo_thread.join()
         self.servo_banda_pwm.ChangeDutyCycle(10)
         time.sleep(1)
         print("Detener todo")
