@@ -334,7 +334,7 @@ class LemonClassifierApp:
         espera = 6
         while running == True and espera > 0:
             print(running)
-            self.set_servo_angle(self.servo_danado_pwm, 87)
+            self.set_servo_angle(self.servo_danado_pwm, 80)
             time.sleep(1)
             #print(espera)
             if espera == 1 and running == True:
@@ -356,7 +356,7 @@ class LemonClassifierApp:
         espera = 3
         while running == True and espera > 0:
             print(running)
-            self.set_servo_angle(self.servo_maduro_pwm, 87)
+            self.set_servo_angle(self.servo_maduro_pwm, 80)
             time.sleep(1)
             #print(espera)
             if espera == 1 and running == True:
