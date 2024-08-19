@@ -172,6 +172,8 @@ class LemonClassifierApp:
         self.vector_len = 10
         #self.semaphore = threading.Semaphore(1)
         #self.semaphore_clasificador = threading.Semaphore(1)
+        self.running = threading.Event()
+        self.thread = None
 
     ### METODOS
 
@@ -327,18 +329,11 @@ class LemonClassifierApp:
 
     # Desiciones al tener limones verdes
     def verdes(self):
-        #self.semaphore.acquire()
-        #try:
+        self.thread = threading.Thread(target=self.run_servo,args=(5,))
+        self.thread.start()
         print("Encender motor verde")
-        time.sleep(4)
-            #servo_thread = threading.Thread(target=self.run_servo,args=(5))
-            #servo_thread.start()
-            #self.set_servo_angle(self.servo_maduro_pwm, 0)
-            #time.sleep(0.5)
-            #self.set_servo_angle(self.servo_danado_pwm, 87)
-            #time.sleep(4)
-            #self.set_servo_angle(self.servo_maduro_pwm, 0)
-            #time.sleep(0.5)
+        time.sleep(5)
+        self.thread.join()
         print("Terminado motor verde")
         #finally:
         #   self.semaphore.release()
@@ -358,30 +353,29 @@ class LemonClassifierApp:
         #time.sleep(1)
         
     def stop_all(self):
-    #    self.stop_banda()
+        self.stop_banda()
         self.stop_camera()
         #self.set_servo_angle(self.servo_danado_pwm, 0)
 
     # banda
-    #def run_servo(self,tiempo):
-    #    global running
-    #    while running:
-    #        #print("Corriendo servo")
-    #        self.servo_banda_pwm.ChangeDutyCycle(10)
-    #        time.sleep(tiempo)
+    def run_servo(self,tiempo):
+        print("Ejecutando servo")
+        time.sleep(5)
 
     def start_banda(self):
         global running
         if not running:
             running = True
-            servo_thread = threading.Thread(target=self.run_servo,args=(5))
-            servo_thread.start()
+            self.servo_thread = threading.Thread(target=self.run_servo,args=(5,))
+            self.servo_thread.start()
         #print("----------Servo started-------------")
         
     def stop_banda(self):
-        global running
-        running = False
-        self.servo_banda_pwm.ChangeDutyCycle(7)
+        self.thread.join()  # Esperar a que el hilo termine
+        print("Tarea detenida y botón Stop presionado")
+        #global running
+        #running = False
+        #self.servo_banda_pwm.ChangeDutyCycle(7)
         #print("------------Servo stopped-----------")
 
 
