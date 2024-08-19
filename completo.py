@@ -408,6 +408,7 @@ class LemonClassifierApp:
     # banda
     def run_servo(self,tiempo):
         global running
+        time.sleep(1)
         while tiempo > 0 and running == True:
             #print("Ejecutando servo")
             self.servo_banda_pwm.ChangeDutyCycle(10)
