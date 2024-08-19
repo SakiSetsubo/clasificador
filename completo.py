@@ -420,7 +420,7 @@ class LemonClassifierApp:
         #print("----------Servo started-------------")
         
     def stop(self):
-        self.servo_banda_pwm.ChangeDutyCycle(10)
+        self.servo_banda_pwm.ChangeDutyCycle(7)
         time.sleep(1)
         print("Detener todo")
         
