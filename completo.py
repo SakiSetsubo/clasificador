@@ -391,7 +391,6 @@ class LemonClassifierApp:
         #self.set_servo_angle(self.servo_maduro_pwm, 0)
         #self.set_servo_angle(self.servo_danado_pwm, 0)
         time.sleep(7)
-        #servo_thread.join()
         
     def stop_all(self):
         #self.stop_banda()
@@ -416,8 +415,6 @@ class LemonClassifierApp:
         self.servo_banda_pwm.ChangeDutyCycle(10)
         time.sleep(1)
         print("Detener todo")
-
-        
         
 if __name__ == "__main__":
 
