@@ -397,7 +397,7 @@ class LemonClassifierApp:
         global running 
         running = False
         print("Stop Ejecutado")
-        self.stop_banda()
+        self.stop()
         self.stop_camera()
         
     # banda
@@ -408,6 +408,8 @@ class LemonClassifierApp:
             self.servo_banda_pwm.ChangeDutyCycle(10)
             time.sleep(1)
             tiempo = tiempo - 1
+        self.servo_banda_pwm.ChangeDutyCycle(7)
+        time.sleep(0.5)
         
     def start_banda(self):
         global running
