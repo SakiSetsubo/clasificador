@@ -324,13 +324,14 @@ class LemonClassifierApp:
 
     # Encender el motor para limones podridos
     def motor_podrito(self):
+        print("Iniciando motor podrido")
         global running
         running = True
         self.thread = threading.Thread(target=self.run_servo,args=(7,))
         self.thread.start()
         self.set_servo_angle(self.servo_danado_pwm, 0)
         time.sleep(0.5)
-        espera = 4
+        espera = 6
         while running == True and espera > 0:
             print(running)
             self.set_servo_angle(self.servo_danado_pwm, 87)
@@ -345,21 +346,25 @@ class LemonClassifierApp:
 
     # Encender el motor para limones maduros
     def motor_maduros(self):
-        #self.semaphore.acquire()
-        #try:
-        print("Encender motor maduro")
-        servo_thread = threading.Thread(target=self.run_servo, args=(5,))
-        servo_thread.start()
-        #self.set_servo_angle(self.servo_danado_pwm, 0)
+        print("Iniciando motor maduros")
+        global running
+        running = True
+        self.thread = threading.Thread(target=self.run_servo,args=(4,))
+        self.thread.start()
         self.set_servo_angle(self.servo_maduro_pwm, 0)
         time.sleep(0.5)
-        self.set_servo_angle(self.servo_maduro_pwm, 87)
-        time.sleep(4)
-        self.set_servo_angle(self.servo_maduro_pwm, 0)
-        time.sleep(0.5)
-        print("Terminado motor maduro")
-        #finally:
-        #    self.semaphore.release()
+        espera = 3
+        while running == True and espera > 0:
+            print(running)
+            self.set_servo_angle(self.servo_maduro_pwm, 87)
+            time.sleep(1)
+            #print(espera)
+            if espera == 1 and running == True:
+                self.set_servo_angle(self.servo_maduro_pwm, 0)
+                time.sleep(0.5)
+            espera = espera - 1
+
+        print("Terminado motor danado")
 
     # Desiciones al tener limones verdes
     def verdes(self):
