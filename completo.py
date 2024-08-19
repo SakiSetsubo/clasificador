@@ -383,14 +383,14 @@ class LemonClassifierApp:
     def start_all(self):
         #self.start_banda()
         self.start_camera()
-        #self.start_classification()
+        self.start_classification()
         #self.set_servo_angle(self.servo_danado_pwm, 87)
         #time.sleep(1)
         #servo_thread = threading.Thread(target=self.run_servo, args=(5,))
         #servo_thread.start()
         #self.set_servo_angle(self.servo_maduro_pwm, 0)
         #self.set_servo_angle(self.servo_danado_pwm, 0)
-        time.sleep(7)
+    
         
     def stop_all(self):
         #self.stop_banda()
